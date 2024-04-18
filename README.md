@@ -4,6 +4,7 @@ Developing an app to learn how multiplayer games work
 ### Environment
 * flutter : v3.19.6
 * Dart : v3.3.4
+* node version: v20.9.0
 
 ## Functional Requirements
 1. Handle 2-4 players at a time 
