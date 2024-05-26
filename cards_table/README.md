@@ -1,6 +1,9 @@
 # cards_table
+This repository was created as _"sandbox"_ to learn about creating a flutter app. The app will start witha simple card game interface.
 
-A new Flutter project.
+## Environment Requirements:
+* VS Code
+* Flutter - [Flutter Download Page](https://docs.flutter.dev/get-started/install)
 
 ## Getting Started
 
