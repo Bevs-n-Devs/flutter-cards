@@ -1,4 +1,8 @@
+import "package:cards_table/screens/card_table_screen.dart";
+import "package:cards_table/screens/jump_on_table.dart";
 import "package:cards_table/screens/main_screen.dart";
+import "package:cards_table/screens/bring_table_entry.dart";
+import "package:cards_table/screens/wait_for_table_screen.dart";
 import "package:flutter/material.dart";
 
 
@@ -14,6 +18,10 @@ class MyApp extends StatelessWidget {
       title: "Cards Table App",
       routes: {
         MainScreen.routeName : (context) => const MainScreen(),
+        BringTableScreen.routeName : (context) => const BringTableScreen(),
+        CardTableScreen.routeName : (context) => const CardTableScreen(),
+        JumpOnTableScreen.routeName : (context) => const JumpOnTableScreen(),
+        WaitForTableScreen.routeName : (context) => const WaitForTableScreen()
       },
       home: const MainScreen(),
     );

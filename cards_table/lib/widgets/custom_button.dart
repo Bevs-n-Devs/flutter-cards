@@ -1,3 +1,4 @@
+import 'package:cards_table/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -14,7 +15,7 @@ class CustomButton extends StatelessWidget {
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.greenAccent,
+            color: txtColor1,
             blurRadius: 5,
             spreadRadius: 0
           )
@@ -23,8 +24,11 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap, 
         style: ElevatedButton.styleFrom(
+          backgroundColor: txtColor1,
+          foregroundColor: bgColor,
           minimumSize: Size(width, 50),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(width*.005))
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(width*.005)),
+          textStyle: const TextStyle(fontWeight: FontWeight.bold)
         ),
         child: Text(text),
         )
