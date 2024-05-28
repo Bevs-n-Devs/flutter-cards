@@ -1,3 +1,4 @@
+import 'package:cards_table/resources/socket_methods.dart';
 import 'package:cards_table/responsive/responsive.dart';
 import 'package:cards_table/screens/card_table_screen.dart';
 import 'package:cards_table/utils/colors.dart';
@@ -17,6 +18,7 @@ class BringTableScreen extends StatefulWidget {
 
 class _BringTableScreenState extends State<BringTableScreen> {
   final TextEditingController _nameController = TextEditingController();
+  final SocketMethods _socketMethods = SocketMethods();
 
   void showCardTable(BuildContext context) {
     Navigator.pushNamed(context, CardTableScreen.routeName);
@@ -55,7 +57,7 @@ class _BringTableScreenState extends State<BringTableScreen> {
               SizedBox(height: size.height * 0.08),
               CustomTextFld(controller: _nameController, hintText: "Put a Name on Your Table"),
               SizedBox(height: size.height * 0.02),
-              CustomButton(onTap: () => showCardTable(context), text: "Join Table", width: size.width)
+              CustomButton(onTap: () => _socketMethods.makeTable(_nameController.text), text: "Join Table", width: size.width)
             ],
           ),
         ),
