@@ -20,6 +20,13 @@ class _BringTableScreenState extends State<BringTableScreen> {
   final TextEditingController _nameController = TextEditingController();
   final SocketMethods _socketMethods = SocketMethods();
 
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.createTableSuccessListener(context);
+  }
+  
   void showCardTable(BuildContext context) {
     Navigator.pushNamed(context, CardTableScreen.routeName);
   }

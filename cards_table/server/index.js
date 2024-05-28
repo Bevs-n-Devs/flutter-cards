@@ -4,6 +4,7 @@
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
+const CardTable = require('./models/table');
 
 const app = express();
 // optional syntax, if process env PORT
@@ -26,8 +27,34 @@ const DB =
 
 io.on("connection", (socket) => {
     console.log("socketio connected!");
-    socket.on('createTable', ({ nickname }) => {
+    socket.on('createTable', async ({ nickname }) => {
         console.log(nickname);
+        try {
+            // 1. make table
+            let table = new CardTable();
+            // 2. player is stored in the room
+            let player = {
+                socketID: socket.id,
+                nickname: nickname,
+            };
+            table.players.push(player);
+            table.turn = player;
+            // 3. load the card table screen
+            table = await table.save();
+            console.log(table);
+            // 4. save card table id
+            const tableId = table._id.toString();
+            
+            socket.join(tableId);
+            // tell our client that the room has been created
+            // io -> send data to everyone
+            // socket -> sending data to yourself
+            io.to(tableId).emit('createTableSuccess', table);
+        } catch (e) {
+            console.log(e);
+        }
+        
+        
     });
 });
 
