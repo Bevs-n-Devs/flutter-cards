@@ -52,9 +52,34 @@ io.on("connection", (socket) => {
             io.to(tableId).emit('createTableSuccess', table);
         } catch (e) {
             console.log(e);
+        } 
+    });
+
+    socket.on('jumpOnTable', async ({nickname, tableId}) => {
+        console.log(`Attempting to jump on table ${nickname} with table id: ${tableId}`);
+        try {
+            if(!tableId.match(/^[0-9a-fA-F]{24}$/)) {
+                socket.emit('errorOccurred', 'Please enter a valid Table ID');
+                return;
+            }
+            let table = await CardTable.findById(tableId);
+            console.log(table);
+
+            if (table.isJoin) {
+                let player = {
+                    nickname: nickname,
+                    socketID: socket.id,
+                }
+                socket.join(tableId);
+                table.players.push(player);
+                table = await table.save();
+                io.to(tableId).emit('joinTableSuccess', table);
+            } else {
+                socket.emit('errorOccurred', 'Game is in progress, try again later.')
+            }
+        } catch(e) {
+            console.log(e);
         }
-        
-        
     });
 });
 

@@ -1,3 +1,4 @@
+import 'package:cards_table/resources/socket_methods.dart';
 import 'package:cards_table/responsive/responsive.dart';
 import 'package:cards_table/screens/card_table_screen.dart';
 import 'package:cards_table/utils/colors.dart';
@@ -17,15 +18,24 @@ class JumpOnTableScreen extends StatefulWidget {
 
 class _JumpOnTableScreenState extends State<JumpOnTableScreen> {
   final TextEditingController _nameController = TextEditingController();
-
+  final TextEditingController _tableIdController = TextEditingController();
+  final SocketMethods _socketMethods = SocketMethods();
   void showCardTable(BuildContext context) {
     Navigator.pushNamed(context, CardTableScreen.routeName);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.joinTableSuccessListener(context);
+    _socketMethods.errorOccurredListener(context);
   }
 
   @override
   void dispose() {
     super.dispose();
     _nameController.dispose();
+    _tableIdController.dispose();
   }
 
   @override
@@ -43,7 +53,7 @@ class _JumpOnTableScreenState extends State<JumpOnTableScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CustomText(
-                text: "Enter table name & the secret phrase", 
+                text: "Enter the table name & ID", 
                 shadows: [
                   Shadow(
                     blurRadius: 5, 
@@ -55,9 +65,12 @@ class _JumpOnTableScreenState extends State<JumpOnTableScreen> {
               SizedBox(height: size.height * 0.08),
               CustomTextFld(controller: _nameController, hintText: "What's you table name"),
               SizedBox(height: size.height * 0.02),
-              CustomTextFld(controller: _nameController, hintText: "What's the secret phrase"),
+              CustomTextFld(controller: _tableIdController, hintText: "What's the Table ID"),
               SizedBox(height: size.height * 0.03),
-              CustomButton(onTap: () => showCardTable(context), text: "Join Table", width: size.width)
+              CustomButton(onTap: () => _socketMethods.jumpOnTable(
+                _nameController.text,
+                _tableIdController.text
+              ), text: "Jump on Table", width: size.width)
             ],
           ),
         ),
