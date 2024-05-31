@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class CustomTextFld extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  const CustomTextFld({super.key, required this.controller, required this.hintText});
+  final bool isReadOnly;
+  const CustomTextFld({super.key, required this.controller, required this.hintText, this.isReadOnly=false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class CustomTextFld extends StatelessWidget {
         ] 
       ),
       child: TextField(
+        readOnly: isReadOnly,
         controller: controller,
         cursorColor: txtColor1,
         decoration: InputDecoration(

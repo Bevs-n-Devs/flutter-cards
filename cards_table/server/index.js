@@ -69,11 +69,17 @@ io.on("connection", (socket) => {
                 let player = {
                     nickname: nickname,
                     socketID: socket.id,
+                    seat: table.players.length,
                 }
                 socket.join(tableId);
                 table.players.push(player);
+                if (table.players.length == table.maxHands) {
+                    table.isJoin = false;
+                }
                 table = await table.save();
                 io.to(tableId).emit('joinTableSuccess', table);
+                io.to(tableId).emit('updatePlayers', table.players);
+                io.to(tableId).emit('updateTable', table);
             } else {
                 socket.emit('errorOccurred', 'Game is in progress, try again later.')
             }

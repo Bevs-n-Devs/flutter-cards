@@ -1,7 +1,7 @@
-import 'dart:js';
-
 import 'package:cards_table/provider/table_data_provider.dart';
+import 'package:cards_table/resources/socket_methods.dart';
 import 'package:cards_table/utils/colors.dart';
+import 'package:cards_table/views/waiting_lobby.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,12 +14,28 @@ class CardTableScreen extends StatefulWidget {
 }
 
 class _CardTableScreenState extends State<CardTableScreen> {
+  final SocketMethods _socketMethods = SocketMethods();
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.updateTableListener(context);
+    _socketMethods.updatePlayerStateListener(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Provider.of<TableDataProvider>(context).tableData.toString();
+    // print(Provider.of<TableDataProvider>(context).player1.nickname);
+    // print(Provider.of<TableDataProvider>(context).player2.nickname);
+    // print(Provider.of<TableDataProvider>(context).player3.nickname);
+    // print(Provider.of<TableDataProvider>(context).player4.nickname);
+    // Provider.of<TableDataProvider>(context).tableData['players'].toString();
+    TableDataProvider tableDataProvider = Provider.of<TableDataProvider>(context);
     return Scaffold(
       backgroundColor: bgColor,
-      body: Center(
+      body: tableDataProvider.tableData['isJoin'] 
+      ? const WaitingLobby() 
+      : Center(
         child: Text(
           Provider.of<TableDataProvider>(context).tableData.toString(),
           style: const TextStyle(

@@ -52,7 +52,7 @@ class _BringTableScreenState extends State<BringTableScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CustomText(
-                text: 'Enter Table Name', 
+                text: 'Enter Your Nickname', 
                 shadows: [
                   Shadow(
                     blurRadius: 5, 
@@ -62,9 +62,9 @@ class _BringTableScreenState extends State<BringTableScreen> {
                 fontSize: 50
               ),
               SizedBox(height: size.height * 0.08),
-              CustomTextFld(controller: _nameController, hintText: "Put a Name on Your Table"),
+              CustomTextFld(controller: _nameController, hintText: "What's you nickname"),
               SizedBox(height: size.height * 0.02),
-              CustomButton(onTap: () => _socketMethods.makeTable(_nameController.text), text: "Join Table", width: size.width)
+              CustomButton(onTap: () => _socketMethods.makeTable(_nameController.text), text: "Set Up Table", width: size.width)
             ],
           ),
         ),

@@ -49,4 +49,28 @@ class SocketMethods {
       showSnackBar(context, data)
     });
   }
+
+  void updatePlayerStateListener(BuildContext context) {
+    _socketClient.on('updatePlayers', (playerData) {
+      Provider.of<TableDataProvider>(context, listen: false).updatePlayer1(
+        playerData[0]
+      );
+      Provider.of<TableDataProvider>(context, listen: false).updatePlayer2(
+        playerData[1]
+      );
+      Provider.of<TableDataProvider>(context, listen: false).updatePlayer3(
+        playerData[2]
+      );
+      Provider.of<TableDataProvider>(context, listen: false).updatePlayer4(
+        playerData[3]
+      );
+    });
+  }
+
+  void updateTableListener(BuildContext context) {
+    _socketClient.on('updateTable', (data) {
+      Provider.of<TableDataProvider>(context, listen: false)
+      .updateTableData(data);
+    });
+  }
 }

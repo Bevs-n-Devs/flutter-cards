@@ -8,7 +8,7 @@ const tableSchema = new mongoose.Schema({
     },
     maxHands: {
         type: Number,
-        default: 3
+        default: 4
     },
     currentHand: {
         required: true,

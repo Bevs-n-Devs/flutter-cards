@@ -29,6 +29,7 @@ class _JumpOnTableScreenState extends State<JumpOnTableScreen> {
     super.initState();
     _socketMethods.joinTableSuccessListener(context);
     _socketMethods.errorOccurredListener(context);
+    _socketMethods.updatePlayerStateListener(context);
   }
 
   @override
@@ -53,7 +54,7 @@ class _JumpOnTableScreenState extends State<JumpOnTableScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CustomText(
-                text: "Enter the table name & ID", 
+                text: "Enter your nickname & the table ID", 
                 shadows: [
                   Shadow(
                     blurRadius: 5, 
@@ -63,7 +64,7 @@ class _JumpOnTableScreenState extends State<JumpOnTableScreen> {
                 fontSize: 50
               ),
               SizedBox(height: size.height * 0.08),
-              CustomTextFld(controller: _nameController, hintText: "What's you table name"),
+              CustomTextFld(controller: _nameController, hintText: "What's you nickname"),
               SizedBox(height: size.height * 0.02),
               CustomTextFld(controller: _tableIdController, hintText: "What's the Table ID"),
               SizedBox(height: size.height * 0.03),
